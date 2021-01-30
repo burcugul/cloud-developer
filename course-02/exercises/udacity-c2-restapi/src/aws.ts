@@ -4,12 +4,12 @@ import { config } from './config/config';
 const c = config.dev;
 
 //Configure AWS
-var credentials = new AWS.SharedIniFileCredentials({profile: process.env.AWS_PROFILE});
+var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
 AWS.config.credentials = credentials;
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
-  region: process.env.AWS_REGION,
+  region: c.aws_region,
   params: {Bucket: c.aws_media_bucket}
 });
 

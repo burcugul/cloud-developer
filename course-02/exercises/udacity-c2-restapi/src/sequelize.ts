@@ -15,7 +15,3 @@ export const sequelize = new Sequelize({
   storage: ':memory:',
 });
 
-// export const sequelize = new Sequelize("postgres://postgres:postgres@host/db_name", {
-//   dialect: 'postgres'
-// })
-
