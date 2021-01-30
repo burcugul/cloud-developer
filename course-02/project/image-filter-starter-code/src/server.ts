@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import {requireAuth} from "../../../exercises/udacity-c2-restapi/src/controllers/v0/users/routes/auth.router";
+import * as AWS from "../../../exercises/udacity-c2-restapi/src/aws";
 
 (async () => {
 
@@ -27,8 +29,19 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
-  /**************************************************************************** */
+  app.get("/filteredimage",
+      async ( req, res ) => {
+        let {image_url} =  req.query;
+        // check image url is valid
+        if (!image_url) {
+          return res.status(400).send({ message: 'Image url is required' });
+        }
 
+        const filteredurl = await filterImageFromURL(image_url);
+        res.status(200).sendFile(filteredurl , () =>
+            deleteLocalFiles([filteredurl ])
+        );
+  } );
   //! END @TODO1
   
   // Root Endpoint
