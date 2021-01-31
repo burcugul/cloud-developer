@@ -28,9 +28,7 @@ import * as AWS from "../../../exercises/udacity-c2-restapi/src/aws";
   //    image_url: URL of a publicly accessible image
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
-
-  app.get("/filteredimage",
-      async ( req, res ) => {
+    app.get( "/filteredimage/", async (req:express.Request, res:express.Response) => {
         let {image_url} =  req.query;
         // check image url is valid
         if (!image_url) {
